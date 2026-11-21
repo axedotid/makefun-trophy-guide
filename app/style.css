@@ -1,7 +1,113 @@
-body { font-family: Arial, sans-serif; margin: 24px; color: #222; }
-header { display: flex; justify-content: space-between; align-items: baseline; }
-.controls { display: flex; gap: 16px; margin: 12px 0; align-items: center; }
-.import input { font-size: 12px; }
-table { border-collapse: collapse; width: 100%; }
-th, td { border-bottom: 1px solid #ddd; padding: 6px 8px; text-align: left; vertical-align: top; white-space: pre-line; }
-th { background: #f2f2f2; }
+/* Vice Got a Price! — GTA VI trophy guide & tracker. Original styling, offline. */
+:root {
+  --bg: #0f1020;
+  --panel: #191a2e;
+  --panel2: #22243d;
+  --ink: #e8e9f3;
+  --muted: #9a9db8;
+  --accent: #ff6ad5;      /* vice pink */
+  --accent2: #4de3ff;     /* miami cyan */
+  --line: #32344f;
+  --gold: #ffd76a;
+  --silver: #c9d2e3;
+  --bronze: #d59a66;
+  --platinum: #7de3ff;
+  --ok: #5ee08a;
+  --warn: #ffb45e;
+}
+* { box-sizing: border-box; }
+html { color-scheme: dark; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  background:
+    radial-gradient(1200px 500px at 80% -10%, #2a1140 0%, transparent 60%),
+    radial-gradient(1000px 400px at -10% 10%, #0a2a3a 0%, transparent 55%),
+    var(--bg);
+  color: var(--ink);
+  line-height: 1.45;
+}
+header {
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding: 22px 28px 14px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(90deg, rgba(255,106,213,.10), rgba(77,227,255,.08));
+}
+header h1 {
+  margin: 0; font-size: clamp(22px, 3vw, 34px); letter-spacing: .5px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+header .sub { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+.progress {
+  font-weight: 700; font-size: 16px; color: var(--ok);
+  background: var(--panel); border: 1px solid var(--line);
+  padding: 10px 16px; border-radius: 999px; white-space: nowrap;
+}
+.toolbar {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
+  padding: 14px 28px; border-bottom: 1px solid var(--line); background: var(--panel);
+}
+.filters, .io { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+label { color: var(--muted); font-size: 13px; }
+select, button, .import input { font: inherit; color: var(--ink); }
+select {
+  background: var(--panel2); border: 1px solid var(--line);
+  border-radius: 8px; padding: 7px 10px;
+}
+.check { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); }
+button, .import {
+  background: var(--panel2); border: 1px solid var(--line); color: var(--ink);
+  border-radius: 8px; padding: 8px 14px; cursor: pointer;
+}
+button:hover, .import:hover { border-color: var(--accent2); }
+.spoiler { border-left: 2px solid var(--warn); padding-left: 12px; }
+.layout {
+  display: grid; grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 18px; padding: 18px 28px; align-items: start;
+}
+@media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+.trophies { min-width: 0; }
+.card {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+  padding: 14px 16px; margin-bottom: 14px;
+}
+.card h2 { margin: 0 0 8px; font-size: 15px; color: var(--accent2); }
+.muted { color: var(--muted); }
+.small { font-size: 12px; }
+ul.roadmap, ul.grades, ul.counts { margin: 6px 0 0; padding-left: 18px; }
+ul.roadmap li, ul.counts li { margin: 6px 0; }
+ul.grades { list-style: none; padding-left: 0; }
+ul.grades li { display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px dashed var(--line); }
+
+.trophy {
+  display: grid; grid-template-columns: 34px 1fr; gap: 0 12px;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+  padding: 12px 14px; margin-bottom: 10px;
+}
+.trophy.earned { border-color: var(--ok); box-shadow: inset 3px 0 0 var(--ok); }
+.trophy.missable { box-shadow: inset 3px 0 0 var(--warn); }
+.trophy.missable.earned { box-shadow: inset 3px 0 0 var(--ok); }
+.trophy .tick { grid-row: 1 / span 2; display: flex; align-items: flex-start; padding-top: 4px; }
+.trophy .tick input { width: 20px; height: 20px; accent-color: var(--ok); cursor: pointer; }
+.trophy .body { min-width: 0; }
+.trophy .top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+.trophy .name { font-weight: 700; font-size: 15px; }
+.trophy.earned .name { color: var(--muted); text-decoration: line-through; }
+.trophy .desc { color: var(--muted); font-size: 13px; }
+.badge {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px;
+  padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink);
+}
+.badge.platinum { color: var(--platinum); border-color: var(--platinum); }
+.badge.gold { color: var(--gold); border-color: var(--gold); }
+.badge.silver { color: var(--silver); border-color: var(--silver); }
+.badge.bronze { color: var(--bronze); border-color: var(--bronze); }
+.flag { font-size: 11px; font-weight: 700; color: #1a1020; background: var(--warn); padding: 2px 8px; border-radius: 999px; }
+.meta { font-size: 12px; color: var(--muted); margin-top: 3px; }
+.guide { margin-top: 8px; font-size: 13.5px; }
+.sources { margin-top: 8px; font-size: 12px; color: var(--muted); word-break: break-word; }
+.sources b { color: var(--accent2); }
+.sources a { color: var(--accent2); }
+.hidden-note { color: var(--warn); font-size: 13px; margin-top: 8px; }
+footer.credits { padding: 8px 28px 30px; color: var(--muted); font-size: 12px; }

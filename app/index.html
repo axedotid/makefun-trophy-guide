@@ -3,23 +3,85 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GTA VI trophy checklist</title>
+<title>Vice Got a Price! — GTA VI Trophy Guide &amp; Tracker</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
-  <h1>GTA VI trophy checklist</h1>
-  <p id="progress">0 of 55 earned</p>
+  <div class="brand">
+    <h1>Vice Got a Price!</h1>
+    <p class="sub">Grand Theft Auto VI · PlayStation 5 · 55 trophies · guide &amp; offline tracker</p>
+  </div>
+  <div class="progress" id="progress" role="status" aria-live="polite">0 of 55 earned</div>
 </header>
-<div class="controls">
-  <label>Grade <select id="grade"><option value="all">All</option><option value="platinum">Platinum</option><option value="gold">Gold</option><option value="silver">Silver</option><option value="bronze">Bronze</option></select></label>
-  <button id="export" type="button">Export progress</button>
-  <label class="import">Import progress <input id="import" type="file" accept="application/json"></label>
-</div>
-<table>
-  <thead><tr><th>Earned</th><th>Trophy</th><th>Grade</th><th>How to get it</th></tr></thead>
-  <tbody id="rows"></tbody>
-</table>
+
+<section class="toolbar" aria-label="Tracker controls">
+  <div class="filters">
+    <label>Kind
+      <select id="kind">
+        <option value="all">All trophies</option>
+        <option value="story">Story</option>
+        <option value="missable">Missable</option>
+        <option value="collectibles">Collectibles</option>
+        <option value="activities">Activities</option>
+      </select>
+    </label>
+    <label>Grade
+      <select id="grade">
+        <option value="all">All</option>
+        <option value="platinum">Platinum</option>
+        <option value="gold">Gold</option>
+        <option value="silver">Silver</option>
+        <option value="bronze">Bronze</option>
+      </select>
+    </label>
+    <label class="check"><input type="checkbox" id="hide-earned"> Hide earned</label>
+    <label class="check spoiler"><input type="checkbox" id="spoiler"> Spoiler mode: hide story trophies until earned</label>
+  </div>
+  <div class="io">
+    <button id="export" type="button">Export progress</button>
+    <label class="import">Import progress <input id="import" type="file" accept="application/json"></label>
+  </div>
+</section>
+
+<main class="layout">
+  <section class="trophies" aria-label="Trophy list">
+    <div id="rows"></div>
+  </section>
+  <aside class="sidebar" aria-label="Roadmap and summary">
+    <div class="card">
+      <h2>Roadmap to the platinum</h2>
+      <p class="muted">One playthrough is enough. Free roam continues after the credits and everything left is still doable.</p>
+      <ol class="roadmap" id="roadmap">
+        <li><b>Story</b> — finish the story; do the Chapter 1 balcony meditation with Lucia (only possible missable). Save at the start and end of every chapter. Do side quests as they appear.</li>
+        <li><b>100% checklist</b> — after the credits, work Progress → Stats → 100% Completion: 200/277 vehicles, 100/255 animals, 300/397 stunts, 15/18 meditations, 70/80 challenges. Most side quests aren't required.</li>
+        <li><b>Cleanup</b> — Strangers &amp; Freaks strands, robberies, garages, shops, leftover activities. Then <i>Vice Got a Price!</i> (platinum) pops on its own.</li>
+      </ol>
+      <p class="muted small">Difficulty ~4/10 · ~200 h · no missable trophies besides the possible Chapter 1 meditation · cheats disable trophies.</p>
+    </div>
+    <div class="card">
+      <h2>Grade breakdown</h2>
+      <ul class="grades" id="grade-summary"></ul>
+    </div>
+    <div class="card">
+      <h2>Counts &amp; missables</h2>
+      <ul class="counts">
+        <li>Cunning Stunts: 250 of 397 stunts</li>
+        <li>The Shootist: 42 shooting-range golds</li>
+        <li>Top Fun: 14 drone-race locations</li>
+        <li>Strangers &amp; Freaks: 8 strands</li>
+        <li>One Last Thing: 50 of 80 challenges</li>
+        <li><b>Missable:</b> Positive Mental Attitude — Chapter 1 balcony meditation</li>
+      </ul>
+      <p class="muted small">Progress is saved in this browser (localStorage). Export a JSON file to move it to another browser, Import to restore.</p>
+    </div>
+  </aside>
+</main>
+
+<footer class="credits">
+  <p>Official trophy names and descriptions as published by PlayStation (via Exophase / PSNProfiles). Guides written for this entry from PowerPyx, PlayStationTrophies.org, Push Square and Know GTA 6 — each trophy lists its sources. App is fully offline; no network requests.</p>
+</footer>
+
 <script type="module" src="app.js"></script>
 </body>
 </html>
